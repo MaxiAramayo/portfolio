@@ -1,0 +1,132 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  ogType?: "website" | "article";
+  canonical?: string;
+  jsonLdExtra?: string;
+}
+
+const SITE = "https://maxiaramayo.com";
+const DEFAULT_TITLE = "Maximiliano Aramayo Lazo — Fullstack Engineer";
+const DEFAULT_DESC =
+  "Fullstack Engineer con productos en producción en salud, retail y servicios. React · TypeScript · NestJS · Next.js. Basado en Buenos Aires, disponible para trabajo remoto global.";
+const DEFAULT_OG = `${SITE}/imagenes-perfil/Perfil.jpeg`;
+
+const {
+  title = DEFAULT_TITLE,
+  description = DEFAULT_DESC,
+  ogImage = DEFAULT_OG,
+  ogType = "website",
+  canonical = SITE + Astro.url.pathname.replace(/\/$/, "") || SITE,
+  jsonLdExtra,
+} = Astro.props;
+
+const personLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Maximiliano Aramayo Lazo",
+  jobTitle: "Fullstack Engineer",
+  url: SITE,
+  email: "maxilazo888@gmail.com",
+  image: DEFAULT_OG,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Buenos Aires",
+    addressCountry: "AR",
+  },
+  knowsAbout: [
+    "React", "TypeScript", "Node.js", "NestJS", "Next.js",
+    "PostgreSQL", "AWS S3", "Firebase", "Tailwind CSS",
+  ],
+  offers: {
+    "@type": "Offer",
+    description:
+      "Desarrollo fullstack: relevamiento, arquitectura, desarrollo, integración y deploy.",
+    areaServed: "Worldwide",
+  },
+});
+
+const websiteLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Maximiliano Aramayo Lazo — Portfolio",
+  url: SITE,
+  description: DEFAULT_DESC,
+  author: { "@type": "Person", name: "Maximiliano Aramayo Lazo" },
+  inLanguage: "es",
+});
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Primary SEO -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Maximiliano Aramayo Lazo" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Maximiliano Aramayo Lazo" />
+    <meta property="og:locale" content="es_AR" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:creator" content="@maxiaramayo" />
+
+    <!-- Theme & App -->
+    <meta name="theme-color" content="#0f0f0f" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="application-name" content="Maximiliano Aramayo Lazo" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+    <!-- Sitemap -->
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- JSON-LD: Person + WebSite -->
+    <script type="application/ld+json" set:html={personLd} />
+    <script type="application/ld+json" set:html={websiteLd} />
+    {jsonLdExtra && <script type="application/ld+json" set:html={jsonLdExtra} />}
+  </head>
+  <body data-theme="dark">
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  @import "../styles/tokens.css";
+  @import "../styles/global.css";
+
+  html, body {
+    min-height: 100%;
+    overflow-x: hidden;
+  }
+  #root { min-height: 100vh; }
+</style>

@@ -1,0 +1,52 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import CaseStudyApp from "../../components/CaseStudyApp";
+import { PROJECTS } from "../../lib/projects";
+
+export function getStaticPaths() {
+  return PROJECTS.filter((p) => p.statusKey !== "nda").map((p) => ({
+    params: { id: p.id },
+    props: { projectId: p.id },
+  }));
+}
+
+const SITE = "https://maxiaramayo.com";
+const { id } = Astro.params;
+const project = PROJECTS.find((p) => p.id === id)!;
+
+const title = `${project.title.es} — Maximiliano Aramayo Lazo`;
+const description = `Case study: ${project.tagline.es} ${project.solution.es}`.slice(0, 160);
+
+const OG_IMAGES: Record<string, string> = {
+  medreports:      `${SITE}/imagenes-gestion-medica/Principal.png`,
+  tutiendaweb:     `${SITE}/imagenes-tutiendaweb/home-dashboard.jpg`,
+  "agenda-mecanico": `${SITE}/imagenes-perfil/Perfil.jpeg`,
+};
+const ogImage = OG_IMAGES[id!] ?? `${SITE}/imagenes-perfil/Perfil.jpeg`;
+
+const articleLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: title,
+  description: description,
+  url: `${SITE}/case-study/${id}`,
+  author: {
+    "@type": "Person",
+    name: "Maximiliano Aramayo Lazo",
+    url: SITE,
+  },
+  image: ogImage,
+  inLanguage: "es",
+  keywords: project.stack.join(", "),
+});
+---
+<Layout
+  title={title}
+  description={description}
+  ogImage={ogImage}
+  ogType="article"
+  canonical={`${SITE}/case-study/${id}`}
+  jsonLdExtra={articleLd}
+>
+  <CaseStudyApp client:load projectId={id!} />
+</Layout>

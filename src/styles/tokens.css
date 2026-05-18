@@ -1,0 +1,386 @@
+/* ============================================================
+   PORTFOLIO — DESIGN TOKENS
+   Editorial grid · dark-first · sage accent
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap");
+
+:root {
+  /* ---- DARK (default) ---- */
+  --bg:           #0e0e10;
+  --bg-2:         #131316;
+  --surface:      #16161a;
+  --surface-2:    #1c1c20;
+  --surface-3:    #232328;
+  --border:       #26262b;
+  --border-soft:  #1d1d22;
+  --hairline:     #2e2e34;
+
+  --text:         #ece9e1;
+  --text-2:       #b8b5ad;
+  --muted:        #7a7a7f;
+  --dim:          #4a4a4f;
+
+  --accent:       #7ab87a;
+  --accent-2:     #5fa860;
+  --accent-soft:  rgba(122, 184, 122, 0.12);
+  --accent-line:  rgba(122, 184, 122, 0.35);
+
+  --warn:         #d9a566;
+  --grid-dot:     rgba(255, 255, 255, 0.045);
+
+  /* ---- Type ---- */
+  --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* ---- Spacing scale ---- */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 64px;
+  --s-9: 96px;
+  --s-10: 128px;
+
+  /* ---- Radii ---- */
+  --r-1: 4px;
+  --r-2: 8px;
+  --r-3: 12px;
+  --r-4: 16px;
+  --r-pill: 999px;
+
+  /* ---- Shadows ---- */
+  --shadow-1: 0 1px 0 rgba(255,255,255,0.03) inset, 0 1px 2px rgba(0,0,0,0.4);
+  --shadow-2: 0 8px 24px rgba(0,0,0,0.35), 0 1px 0 rgba(255,255,255,0.04) inset;
+  --shadow-glow: 0 0 0 1px var(--accent-line), 0 0 32px rgba(122,184,122,0.15);
+
+  /* ---- Easing ---- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+[data-theme="light"] {
+  --bg:           #f6f3ec;
+  --bg-2:         #ede9df;
+  --surface:      #ffffff;
+  --surface-2:    #faf8f2;
+  --surface-3:    #f0ede4;
+  --border:       #d9d4c6;
+  --border-soft:  #e6e1d3;
+  --hairline:     #c9c3b3;
+
+  --text:         #14141a;
+  --text-2:       #3a3a40;
+  --muted:        #6e6e72;
+  --dim:          #a8a59c;
+
+  --accent:       #4a8554;
+  --accent-2:     #3d6e45;
+  --accent-soft:  rgba(74, 133, 84, 0.10);
+  --accent-line:  rgba(74, 133, 84, 0.30);
+
+  --grid-dot:     rgba(20, 20, 26, 0.07);
+  --shadow-1: 0 1px 0 rgba(255,255,255,0.6) inset, 0 1px 2px rgba(20,20,26,0.06);
+  --shadow-2: 0 12px 32px rgba(20,20,26,0.08), 0 1px 0 rgba(255,255,255,0.8) inset;
+  --shadow-glow: 0 0 0 1px var(--accent-line), 0 0 28px rgba(74,133,84,0.12);
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11", "calt";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-size: 16px;
+  line-height: 1.55;
+  letter-spacing: -0.005em;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; padding: 0; }
+img { display: block; max-width: 100%; }
+
+::selection { background: var(--accent); color: var(--bg); }
+
+/* ============================================================
+   TYPOGRAPHY UTILITIES
+   ============================================================ */
+
+.meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.label-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.eyebrow::before {
+  content: "";
+  width: 18px;
+  height: 1px;
+  background: var(--hairline);
+}
+
+h1, h2, h3, h4 {
+  margin: 0;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  color: var(--text);
+}
+
+.display {
+  font-size: clamp(64px, 9vw, 144px);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 0.92;
+}
+
+.h-1 { font-size: clamp(36px, 4.5vw, 64px); letter-spacing: -0.03em; line-height: 1; }
+.h-2 { font-size: clamp(28px, 3vw, 40px); letter-spacing: -0.025em; line-height: 1.05; }
+.h-3 { font-size: 22px; letter-spacing: -0.015em; line-height: 1.15; }
+
+.lede {
+  font-size: 18px;
+  line-height: 1.55;
+  color: var(--text-2);
+  max-width: 56ch;
+}
+
+.body-lg { font-size: 17px; line-height: 1.6; color: var(--text-2); }
+.body { font-size: 15px; line-height: 1.6; color: var(--text-2); }
+.body-sm { font-size: 13.5px; line-height: 1.55; color: var(--text-2); }
+
+/* ============================================================
+   GRID BACKGROUND (dotted, very subtle)
+   ============================================================ */
+
+.grid-bg {
+  background-image: radial-gradient(circle at 1px 1px, var(--grid-dot) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border-radius: var(--r-pill);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  border: 1px solid transparent;
+  transition: transform 0.4s var(--ease-out), background 0.25s, border-color 0.25s, color 0.25s;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+
+.btn-primary {
+  background: var(--text);
+  color: var(--bg);
+}
+.btn-primary:hover { background: var(--accent); color: var(--bg); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border);
+}
+.btn-ghost:hover { border-color: var(--text); background: var(--surface-2); }
+
+.btn-link {
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--text);
+  border-bottom: 1px solid var(--accent);
+  padding-bottom: 2px;
+}
+.btn-link:hover { color: var(--accent); transform: none; }
+
+.btn .arrow {
+  display: inline-block;
+  transition: transform 0.4s var(--ease-out);
+}
+.btn:hover .arrow { transform: translateX(3px); }
+
+/* ============================================================
+   CHIPS / TAGS
+   ============================================================ */
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: var(--r-pill);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-2);
+  background: var(--surface-2);
+  border: 1px solid var(--border-soft);
+  letter-spacing: 0.01em;
+}
+
+.chip.solid {
+  background: var(--text);
+  color: var(--bg);
+  border-color: var(--text);
+}
+
+.chip.accent {
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-color: var(--accent-line);
+}
+
+.chip-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+/* ============================================================
+   STATUS PILLS
+   ============================================================ */
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--text-2);
+}
+
+.status .pulse {
+  position: relative;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.status .pulse::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.35;
+  animation: pulse 2s var(--ease-out) infinite;
+}
+
+@keyframes pulse {
+  0%   { transform: scale(0.6); opacity: 0.45; }
+  70%  { transform: scale(1.6); opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* ============================================================
+   HAIRLINE DIVIDERS
+   ============================================================ */
+
+.hairline { height: 1px; background: var(--hairline); border: 0; }
+
+.section-rule {
+  display: grid;
+  grid-template-columns: max-content 1fr max-content;
+  align-items: center;
+  gap: 16px;
+}
+.section-rule .line { height: 1px; background: var(--hairline); }
+
+/* ============================================================
+   CUSTOM CURSOR
+   ============================================================ */
+
+.cursor-dot, .cursor-ring {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  top: 0; left: 0;
+  border-radius: 50%;
+  mix-blend-mode: difference;
+}
+.cursor-dot {
+  width: 6px; height: 6px;
+  background: #fff;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s, background 0.2s;
+}
+.cursor-ring {
+  width: 36px; height: 36px;
+  border: 1px solid rgba(255,255,255,0.5);
+  transform: translate(-50%, -50%);
+  transition: transform 0.18s var(--ease-out), width 0.2s, height 0.2s, border-color 0.2s;
+}
+.cursor-ring.hovered {
+  width: 60px; height: 60px;
+  border-color: rgba(255,255,255,0.9);
+}
+@media (hover: none), (pointer: coarse) {
+  .cursor-dot, .cursor-ring { display: none; }
+}
+
+/* ============================================================
+   FOCUS
+   ============================================================ */
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--hairline); }
