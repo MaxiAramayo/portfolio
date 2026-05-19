@@ -704,7 +704,17 @@
 .footer-l { display: flex; flex-direction: column; gap: 8px; }
 .footer-brand { display: inline-flex; align-items: center; gap: 10px; color: var(--accent); font-size: 14px; font-weight: 500; }
 .footer-brand span { color: var(--text); }
-.footer-r { display: flex; gap: 20px; }
+.footer-r { display: flex; align-items: center; gap: 20px; }
+.footer-social { display: inline-flex; align-items: center; gap: 4px; }
+.footer-social-link {
+  display: grid; place-items: center;
+  width: 32px; height: 32px;
+  border-radius: var(--r-pill);
+  color: var(--muted);
+  border: 1px solid var(--border-soft);
+  transition: color 0.2s, border-color 0.2s;
+}
+.footer-social-link:hover { color: var(--text); border-color: var(--border); }
 
 /* ---- CASE STUDY ---- */
 .cs-main { max-width: 1240px; margin: 0 auto; padding: 24px 32px 48px; position: relative; }

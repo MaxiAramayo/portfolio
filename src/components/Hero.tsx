@@ -83,7 +83,7 @@ export default function Hero({ t, lang }: HeroProps) {
               {t.hero.ctaPrimary}
               <span className="arrow">→</span>
             </a>
-            <a href="#cv" className="btn btn-ghost" data-cursor="hover">
+            <a href="/cv/CV_ING_Aramayo.pdf" download className="btn btn-ghost" data-cursor="hover">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7">
                 <path d="M12 4v12m0 0l-4-4m4 4l4-4M5 20h14" />
               </svg>
