@@ -90,7 +90,7 @@ export default function Contact({ t, lang }: ContactProps) {
           <Row k="response" v={lang === "es" ? "< 24 hs hábiles" : "< 24 business hrs"} />
           <Row
             k="languages"
-            v={lang === "es" ? "Español (nativo) · Inglés (B2 profesional)" : "Spanish (native) · English (professional B2)"}
+            v={lang === "es" ? "Español (nativo) · Inglés (B1 intermedio)" : "Spanish (native) · English (intermediate B1)"}
           />
           <Row k="timezone" v={<><LiveClock /> · GMT-3</>} />
         </div>
