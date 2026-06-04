@@ -6,6 +6,7 @@ interface Props {
   ogType?: "website" | "article";
   canonical?: string;
   jsonLdExtra?: string;
+  verificationMeta?: string;
 }
 
 const SITE = "https://maxiaramayo.com";
@@ -21,6 +22,7 @@ const {
   ogType = "website",
   canonical = SITE + Astro.url.pathname.replace(/\/$/, "") || SITE,
   jsonLdExtra,
+  verificationMeta,
 } = Astro.props;
 
 const personLd = JSON.stringify({
@@ -37,8 +39,15 @@ const personLd = JSON.stringify({
     addressCountry: "AR",
   },
   knowsAbout: [
-    "React", "TypeScript", "Node.js", "NestJS", "Next.js",
-    "PostgreSQL", "AWS S3", "Firebase", "Tailwind CSS",
+    "React",
+    "TypeScript",
+    "Node.js",
+    "NestJS",
+    "Next.js",
+    "PostgreSQL",
+    "AWS S3",
+    "Firebase",
+    "Tailwind CSS",
   ],
   offers: {
     "@type": "Offer",
@@ -69,7 +78,10 @@ const websiteLd = JSON.stringify({
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="author" content="Maximiliano Aramayo Lazo" />
-    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+    <meta
+      name="robots"
+      content="index, follow, max-snippet:-1, max-image-preview:large"
+    />
     <link rel="canonical" href={canonical} />
 
     <!-- Open Graph -->
@@ -94,6 +106,11 @@ const websiteLd = JSON.stringify({
     <meta name="theme-color" content="#0f0f0f" />
     <meta name="color-scheme" content="dark" />
     <meta name="application-name" content="Maximiliano Aramayo Lazo" />
+    {
+      verificationMeta && (
+        <meta name="facebook-domain-verification" content={verificationMeta} />
+      )
+    }
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -102,12 +119,19 @@ const websiteLd = JSON.stringify({
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
 
     <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D1K4WJ4PH0"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D1K4WJ4PH0"
+    ></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-D1K4WJ4PH0');
+      const win = window as unknown as {
+        dataLayer: unknown[];
+        gtag: (...args: unknown[]) => void;
+      };
+      win.dataLayer = win.dataLayer || [];
+      win.gtag = (...args) => {
+        win.dataLayer.push(args);
+      };
+      win.gtag("js", new Date());
+      win.gtag("config", "G-D1K4WJ4PH0");
     </script>
 
     <!-- Fonts -->
@@ -121,7 +145,11 @@ const websiteLd = JSON.stringify({
     <!-- JSON-LD: Person + WebSite -->
     <script type="application/ld+json" set:html={personLd} />
     <script type="application/ld+json" set:html={websiteLd} />
-    {jsonLdExtra && <script type="application/ld+json" set:html={jsonLdExtra} />}
+    {
+      jsonLdExtra && (
+        <script type="application/ld+json" set:html={jsonLdExtra} />
+      )
+    }
   </head>
   <body data-theme="dark">
     <slot />
@@ -132,9 +160,12 @@ const websiteLd = JSON.stringify({
   @import "../styles/tokens.css";
   @import "../styles/global.css";
 
-  html, body {
+  html,
+  body {
     min-height: 100%;
     overflow-x: hidden;
   }
-  #root { min-height: 100vh; }
+  #root {
+    min-height: 100vh;
+  }
 </style>
