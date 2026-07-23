@@ -1,5 +1,4 @@
 export type Lang = "es" | "en";
-export type Theme = "dark" | "light";
 
 export interface BilingualString {
   es: string;
@@ -31,35 +30,25 @@ export interface Project {
 }
 
 export interface NavContent {
-  work: string;
   about: string;
-  process: string;
+  work: string;
   stack: string;
-  credentials: string;
   contact: string;
   cv: string;
-  hire: string;
+  /** Etiqueta accesible del <nav>, no se muestra en pantalla. */
+  sections: string;
 }
 
 export interface HeroContent {
-  eyebrow: string;
-  name: [string, string];
-  tagline: string;
-  tagline2: string;
-  sub: string;
-  ctaPrimary: string;
-  ctaSecondary: string;
+  name: string;
+  degree: string;
+  role: string;
+  pitch: string;
   meta: {
     based: string;
     timezone: string;
     years: string;
   };
-}
-
-export interface ProcessStep {
-  n: string;
-  t: string;
-  d: string;
 }
 
 export interface StackGroup {
@@ -72,23 +61,14 @@ export interface CredentialItem {
   name: string;
   issuer: string;
   year: string;
-  status: string;
-  note: string;
-  image?: string;
-}
-
-export interface AvailabilityMode {
-  k: string;
-  d: string;
+  image: string;
 }
 
 export interface PortfolioContent {
   nav: NavContent;
   hero: HeroContent;
-  metrics: Array<{ value: string; label: string; note: string }>;
   about: {
     eyebrow: string;
-    title: string;
     body1: string;
     body2: string;
     body3: string;
@@ -96,34 +76,16 @@ export interface PortfolioContent {
   };
   work: {
     eyebrow: string;
-    title: string;
     sub: string;
-    seeAll: string;
-    expand: string;
-    readCase: string;
-  };
-  process: {
-    eyebrow: string;
-    title: string;
-    steps: ProcessStep[];
+    openCase: string;
   };
   stack: {
     eyebrow: string;
-    title: string;
     groups: StackGroup[];
   };
   credentials: {
     eyebrow: string;
-    title: string;
-    sub: string;
     items: CredentialItem[];
-    addMore: string;
-  };
-  availability: {
-    eyebrow: string;
-    title: string;
-    modes: AvailabilityMode[];
-    location: string;
   };
   contact: {
     eyebrow: string;
@@ -131,24 +93,10 @@ export interface PortfolioContent {
     sub: string;
     email: string;
     writeMe: string;
-    copy: string;
-    copied: string;
-    cv: string;
   };
   footer: {
     colofon: string;
     year: string;
     built: string;
-  };
-  drawer: {
-    summary: string;
-    problem: string;
-    solution: string;
-    stack: string;
-    role: string;
-    impact: string;
-    status: string;
-    readMore: string;
-    close: string;
   };
 }

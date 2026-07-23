@@ -1,37 +1,36 @@
 /* ============================================================
    PORTFOLIO — DESIGN TOKENS
-   Editorial grid · dark-first · sage accent
+   Dos columnas · dark-only · acento turquesa
    ============================================================ */
 
-@import url("https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap");
 
 :root {
-  /* ---- DARK (default) ---- */
-  --bg:           #0e0e10;
-  --bg-2:         #131316;
-  --surface:      #16161a;
-  --surface-2:    #1c1c20;
-  --surface-3:    #232328;
-  --border:       #26262b;
-  --border-soft:  #1d1d22;
-  --hairline:     #2e2e34;
+  --bg:           #0b1120;
+  --bg-2:         #0f172a;
+  --surface:      #131c2e;
+  --surface-2:    #182236;
+  --surface-3:    #1e293b;
+  --border:       rgba(148, 163, 184, 0.14);
+  --border-soft:  rgba(148, 163, 184, 0.08);
+  --hairline:     rgba(148, 163, 184, 0.22);
 
-  --text:         #ece9e1;
-  --text-2:       #b8b5ad;
-  --muted:        #7a7a7f;
-  --dim:          #4a4a4f;
+  --text:         #e2e8f0;
+  --text-2:       #94a3b8;
+  --muted:        #64748b;
+  --dim:          #475569;
 
-  --accent:       #7ab87a;
-  --accent-2:     #5fa860;
-  --accent-soft:  rgba(122, 184, 122, 0.12);
-  --accent-line:  rgba(122, 184, 122, 0.35);
+  --accent:       #5eead4;
+  --accent-2:     #2dd4bf;
+  --accent-soft:  rgba(94, 234, 212, 0.12);
+  --accent-line:  rgba(94, 234, 212, 0.35);
 
-  --warn:         #d9a566;
-  --grid-dot:     rgba(255, 255, 255, 0.045);
+  --warn:         #fbbf24;
+  --grid-dot:     rgba(148, 163, 184, 0.05);
 
   /* ---- Type ---- */
-  --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-mono: "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
 
   /* ---- Spacing scale ---- */
   --s-1: 4px;
@@ -55,37 +54,11 @@
   /* ---- Shadows ---- */
   --shadow-1: 0 1px 0 rgba(255,255,255,0.03) inset, 0 1px 2px rgba(0,0,0,0.4);
   --shadow-2: 0 8px 24px rgba(0,0,0,0.35), 0 1px 0 rgba(255,255,255,0.04) inset;
-  --shadow-glow: 0 0 0 1px var(--accent-line), 0 0 32px rgba(122,184,122,0.15);
+  --shadow-glow: 0 0 0 1px var(--accent-line), 0 0 32px rgba(94, 234, 212, 0.15);
 
   /* ---- Easing ---- */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
-}
-
-[data-theme="light"] {
-  --bg:           #f6f3ec;
-  --bg-2:         #ede9df;
-  --surface:      #ffffff;
-  --surface-2:    #faf8f2;
-  --surface-3:    #f0ede4;
-  --border:       #d9d4c6;
-  --border-soft:  #e6e1d3;
-  --hairline:     #c9c3b3;
-
-  --text:         #14141a;
-  --text-2:       #3a3a40;
-  --muted:        #6e6e72;
-  --dim:          #a8a59c;
-
-  --accent:       #4a8554;
-  --accent-2:     #3d6e45;
-  --accent-soft:  rgba(74, 133, 84, 0.10);
-  --accent-line:  rgba(74, 133, 84, 0.30);
-
-  --grid-dot:     rgba(20, 20, 26, 0.07);
-  --shadow-1: 0 1px 0 rgba(255,255,255,0.6) inset, 0 1px 2px rgba(20,20,26,0.06);
-  --shadow-2: 0 12px 32px rgba(20,20,26,0.08), 0 1px 0 rgba(255,255,255,0.8) inset;
-  --shadow-glow: 0 0 0 1px var(--accent-line), 0 0 28px rgba(74,133,84,0.12);
 }
 
 /* ============================================================

@@ -2,8 +2,44 @@ import type { Project } from "./types";
 
 export const PROJECTS: Project[] = [
   {
-    id: "medreports",
+    id: "odoo-ferreteria",
     n: "01",
+    year: "2025",
+    status: { es: "En producción", en: "Live" },
+    statusKey: "live",
+    title: {
+      es: "Implementación ERP Odoo 18 — Ferretería Aramayo",
+      en: "Odoo 18 ERP Rollout — Aramayo Hardware Store",
+    },
+    tagline: {
+      es: "Dos sucursales, dos catálogos separados y +10.000 productos unificados en un solo ERP.",
+      en: "Two branches, two separate catalogs and 10,000+ products unified into a single ERP.",
+    },
+    sector: { es: "Retail · ERP", en: "Retail · ERP" },
+    role: {
+      es: "Analista · Implementador · Desarrollo · Deploy · Capacitación",
+      en: "Analyst · Implementer · Development · Deploy · Training",
+    },
+    problem: {
+      es: "Dos instalaciones independientes del sistema anterior, una por sucursal, cada una con su propio catálogo, códigos y stock. El mismo producto aparecía con nombres y códigos distintos: sin catálogo único, sin stock real y con actualización de precios fragmentada.",
+      en: "Two independent installs of the legacy system, one per branch, each with its own catalog, codes and stock. The same product appeared under different names and codes: no single catalog, no real stock figure and fragmented price updates.",
+    },
+    solution: {
+      es: "Odoo 18 Community centralizado: catálogo unificado con stock diferenciado por sucursal, módulos de Ventas, Compras, Inventario, POS y Facturación adaptados, módulos custom de precios y cuentas corrientes, POS rehecho para operar por teclado, y despliegue en VPS con Docker, Nginx, SSL y backups automáticos.",
+      en: "A centralized Odoo 18 Community rollout: unified catalog with per-branch stock, adapted Sales, Purchase, Inventory, POS and Invoicing modules, custom pricing and store-credit modules, a POS reworked for keyboard-only operation, and a VPS deployment with Docker, Nginx, SSL and automated backups.",
+    },
+    impact: [
+      { v: "10.000+", k: { es: "productos migrados", en: "products migrated" }, sub: { es: "Catálogo limpiado y normalizado", en: "Catalog cleaned and normalized" } },
+      { v: "2 → 1", k: { es: "catálogos unificados", en: "catalogs unified" }, sub: { es: "Stock diferenciado por sucursal", en: "Per-branch stock kept separate" } },
+      { v: "3", k: { es: "usuarios capacitados", en: "users trained" }, sub: { es: "Transición en paralelo, sin frenar la operación", en: "Parallel transition, operation never stopped" } },
+    ],
+    stack: ["Odoo 18 Community", "Python", "XML", "JavaScript", "PostgreSQL", "Docker", "Nginx", "VPS", "SSL"],
+    security: ["Acceso por roles de Odoo", "SSL con certificado propio", "Backups automáticos en Google Drive", "Entorno local separado del de producción"],
+    accent: "#c084fc",
+  },
+  {
+    id: "medreports",
+    n: "02",
     year: "2024",
     status: { es: "En producción", en: "Live" },
     statusKey: "live",
@@ -33,7 +69,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "tutiendaweb",
-    n: "02",
+    n: "03",
     year: "2024",
     status: { es: "En producción · SaaS", en: "Live · SaaS" },
     statusKey: "live",
@@ -63,7 +99,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "agenda-mecanico",
-    n: "03",
+    n: "04",
     year: "2024",
     status: { es: "En producción", en: "Live" },
     statusKey: "live",

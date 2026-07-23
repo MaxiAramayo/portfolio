@@ -1,12 +1,14 @@
 import { useState, useEffect, useRef } from "react";
+import type { ReactElement, RefObject } from "react";
 import { PORTFOLIO_CONTENT } from "../lib/content";
 import { PROJECTS } from "../lib/projects";
 import { CASE_STUDIES } from "../lib/case-studies";
 import type { CsScreenshot } from "../lib/case-studies";
 import { pick } from "../lib/content";
 import type { Lang, PortfolioContent } from "../lib/types";
+import Lightbox from "./Lightbox";
 
-function useInView(ref: React.RefObject<Element | null>) {
+function useInView(ref: RefObject<Element | null>) {
   const [seen, setSeen] = useState(false);
   useEffect(() => {
     if (!ref.current || seen) return;
@@ -22,27 +24,6 @@ function useInView(ref: React.RefObject<Element | null>) {
     return () => io.disconnect();
   }, [ref, seen]);
   return seen;
-}
-
-/* ---- Lightbox ---- */
-function Lightbox({ src, onClose }: { src: string; onClose: () => void }) {
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
-    window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
-  }, [onClose]);
-
-  return (
-    <div className="lightbox-overlay" onClick={onClose}>
-      <button className="lightbox-close" onClick={onClose} aria-label="Cerrar">✕</button>
-      <img
-        src={src}
-        alt=""
-        className="lightbox-img"
-        onClick={(e) => e.stopPropagation()}
-      />
-    </div>
-  );
 }
 
 /* ---- Screenshots with groups ---- */
@@ -150,8 +131,8 @@ function ArchBox({ x, y, w, h, title, sub, accent = "var(--border)" }: {
   return (
     <g>
       <rect x={x} y={y} width={w} height={h} rx={8} fill="var(--surface-2)" stroke={accent} strokeWidth="1" />
-      <text x={x + 12} y={y + 24} fill="var(--text)" fontFamily="Geist" fontSize="12" fontWeight="500">{title}</text>
-      <text x={x + 12} y={y + 42} fill="var(--muted)" fontFamily="Geist Mono" fontSize="10">{sub}</text>
+      <text x={x + 12} y={y + 24} fill="var(--text)" fontFamily="Manrope" fontSize="12" fontWeight="500">{title}</text>
+      <text x={x + 12} y={y + 42} fill="var(--muted)" fontFamily="JetBrains Mono" fontSize="10">{sub}</text>
     </g>
   );
 }
@@ -282,6 +263,45 @@ function ArchDiagramAgenda() {
   );
 }
 
+function ArchDiagramOdoo() {
+  return (
+    <div className="arch">
+      <svg viewBox="0 0 720 380" width="100%" preserveAspectRatio="xMidYMid meet">
+        <GridBg />
+        {/* Entry points: las dos sucursales */}
+        <ArchBox x={20}  y={40}  w={160} h={60} title="Sucursal 1" sub="POS · Caja" accent="var(--accent)" />
+        <ArchBox x={20}  y={160} w={160} h={60} title="Sucursal 2" sub="POS · Caja" accent="var(--accent)" />
+        <ArchBox x={20}  y={280} w={160} h={60} title="Backoffice" sub="Compras · Precios" accent="var(--accent)" />
+        {/* Capa de aplicación */}
+        <ArchBox x={255} y={100} w={175} h={80} title="Odoo 18 Community" sub="Ventas · Inventario · POS" accent="var(--accent)" />
+        <ArchBox x={255} y={220} w={175} h={80} title="Módulos custom" sub="Precios · Cuentas corrientes" />
+        {/* Infra */}
+        <ArchBox x={505} y={30}  w={195} h={60} title="Nginx + SSL" sub="Dominio propio" />
+        <ArchBox x={505} y={130} w={195} h={60} title="Docker en VPS" sub="Prod + entorno local" />
+        <ArchBox x={505} y={230} w={195} h={60} title="PostgreSQL" sub="Catálogo unificado" />
+        <ArchBox x={505} y={310} w={195} h={60} title="Backups Google Drive" sub="Automáticos" />
+        {([
+          [180, 70,  255, 130],
+          [180, 190, 255, 150],
+          [180, 310, 255, 260],
+          [430, 140, 505, 60],
+          [430, 140, 505, 160],
+          [430, 260, 505, 260],
+          [430, 260, 505, 340],
+        ] as [number, number, number, number][]).map(([x1, y1, x2, y2], i) => (
+          <line key={i} x1={x1} y1={y1} x2={x2} y2={y2}
+            stroke="var(--muted)" strokeWidth="1" strokeDasharray="3 3"
+            markerEnd="url(#arr)" />
+        ))}
+      </svg>
+      <div className="arch-legend meta">
+        <span><i style={{ background: "var(--accent)" }} />Entry points</span>
+        <span><i style={{ background: "var(--muted)" }} />Infraestructura</span>
+      </div>
+    </div>
+  );
+}
+
 function StackCol({ k, v }: { k: string; v: string[] }) {
   return (
     <div className="stack-col">
@@ -370,7 +390,8 @@ interface CaseStudyAppProps {
   projectId: string;
 }
 
-const ARCH_DIAGRAMS: Record<string, () => JSX.Element> = {
+const ARCH_DIAGRAMS: Record<string, () => ReactElement> = {
+  "odoo-ferreteria": ArchDiagramOdoo,
   medreports: ArchDiagramMedReports,
   tutiendaweb: ArchDiagramTuTiendaWeb,
   "agenda-mecanico": ArchDiagramAgenda,

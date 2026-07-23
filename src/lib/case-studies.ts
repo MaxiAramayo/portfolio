@@ -51,6 +51,150 @@ export interface CaseStudyData {
 }
 
 export const CASE_STUDIES: Record<string, { es: CaseStudyData; en: CaseStudyData }> = {
+  "odoo-ferreteria": {
+    es: {
+      duration: "2025 – Presente",
+      team: "Analista e implementador único + 3 usuarios operativos",
+      context: {
+        title: "Dos sucursales, dos sistemas separados y ningún catálogo en común.",
+        body: "La ferretería operaba con dos instalaciones independientes de Adm Global, una por sucursal. Cada una mantenía su propio catálogo, sus códigos internos y su stock, así que un mismo producto podía existir dos veces con nombres y códigos distintos. Con más de 10.000 productos, migrar sin una estrategia significaba trasladar todos esos errores al sistema nuevo.",
+        bullets: [
+          "Dos catálogos independientes, sin códigos ni nombres compartidos.",
+          "Sin visibilidad del stock real consolidado entre sucursales.",
+          "Actualización de precios fragmentada y casi ninguna capacidad de análisis.",
+        ],
+      },
+      problems: [
+        { n: "01", t: "Catálogo duplicado", d: "El mismo producto vivía dos veces, con código, nombre y categoría distintos en cada sucursal. Toda alta o modificación se hacía dos veces." },
+        { n: "02", t: "Stock que nadie conocía", d: "Sin un catálogo común no había forma de saber el stock real de un producto ni de ordenar compras con criterio. Las exportaciones del sistema anterior llegaban incompletas y desordenadas." },
+        { n: "03", t: "Precios sin política", d: "Las actualizaciones de precio se hacían producto por producto y por sucursal. No existían márgenes por categoría ni una regla consistente que sostener." },
+      ],
+      constraints: [
+        { id: "A", title: "Continuidad", body: "La ferretería no podía dejar de vender ni un día durante la migración." },
+        { id: "B", title: "Volumen de datos", body: "Más de 10.000 productos exportados en CSV con columnas incompletas y datos inconsistentes entre sucursales." },
+        { id: "C", title: "Usuarios sin experiencia en ERP", body: "Tres empleados acostumbrados al sistema anterior. La adopción tenía que ser gradual y sin fricción." },
+        { id: "D", title: "Reversibilidad", body: "Cualquier problema serio tenía que poder resolverse volviendo al sistema anterior sin perder ventas." },
+      ],
+      stackGroups: [
+        { k: "ERP", v: ["Odoo 18 Community", "Ventas", "Compras", "Inventario", "Punto de Venta", "Facturación"] },
+        { k: "Desarrollo", v: ["Python", "XML", "JavaScript (OWL)", "Módulos custom"] },
+        { k: "Datos", v: ["PostgreSQL", "CSV import", "Limpieza y normalización", "Deduplicación entre sucursales"] },
+        { k: "Infraestructura", v: ["VPS", "Docker", "Nginx", "Dominio + SSL", "Backups automáticos a Google Drive"] },
+      ],
+      decisions: [
+        {
+          n: "A·01",
+          t: "Odoo 18 Community, no un sistema a medida",
+          body: "El negocio necesitaba ventas, compras, inventario, POS y facturación funcionando en semanas, no un desarrollo desde cero que iba a tardar meses y quedar sin mantenimiento.",
+          chose: "Odoo 18 Community + módulos custom donde el estándar no alcanzaba",
+          reason: "El 80% de la operación ya está resuelta por el estándar. El desarrollo propio se reserva para lo que realmente diferencia al negocio: precios y cuentas corrientes.",
+        },
+        {
+          n: "A·02",
+          t: "Catálogo único con stock por sucursal, no dos bases separadas",
+          body: "Se podía replicar la estructura anterior con dos compañías o unificar el catálogo y separar solo el inventario. La primera opción era más fácil de migrar y mantenía el problema original intacto.",
+          chose: "Un solo producto por artículo, con ubicaciones de stock distintas por sucursal",
+          reason: "Un alta de producto, un precio, un historial. La diferencia entre sucursales pasa a ser dónde está la mercadería, no qué es.",
+        },
+        {
+          n: "A·03",
+          t: "POS rehecho para teclado, no para pantalla táctil",
+          body: "El Punto de Venta estándar de Odoo está pensado para interacción táctil. En el mostrador se vende desde una computadora con teclado y cada segundo de mouse cuenta.",
+          chose: "Personalización del POS con atajos de teclado y menos pasos por operación",
+          reason: "Se adapta el sistema al hábito real de los empleados en vez de pedirles que cambien de forma de trabajar en plena migración.",
+        },
+      ],
+      challenges: [
+        "Identificar productos equivalentes entre sucursales. Códigos internos distintos, nombres parecidos pero no iguales, categorías diferentes y datos faltantes. Utilicé herramientas de IA para acelerar la limpieza y la transformación inicial, pero definí las reglas de matching, revisé los resultados y validé manualmente cada caso ambiguo.",
+        "Convertir un POS táctil en uno operable por teclado. Rehice gran parte de la experiencia del Punto de Venta: navegación por atajos, flujos optimizados para ventas repetitivas y menos pasos por operación, sin romper la compatibilidad con las actualizaciones del módulo estándar.",
+        "Módulos custom de precios y cuentas corrientes. Desarrollé en Python, XML y JavaScript una gestión de precios por margen global, margen por categoría y configuración individual por producto, más las cuentas corrientes de clientes según la operación habitual del negocio.",
+        "Capacitar sin frenar las ventas. Instalé el acceso en cada equipo y pedí a los empleados replicar en Odoo las mismas ventas que hacían en el sistema anterior. Acompañé cada operación, registré las dificultades reales de uso y ajusté el sistema con ese feedback antes de depender de él.",
+      ],
+      impactRows: [
+        { before: "2 catálogos", after: "1 catálogo", k: "Estructura de productos" },
+        { before: "Stock por sistema aislado", after: "Stock por sucursal en un solo lugar", k: "Visibilidad de inventario" },
+        { before: "Precio por producto y sucursal", after: "Márgenes global, por categoría o individual", k: "Política de precios" },
+        { before: "Sin backup ni entorno de pruebas", after: "VPS con Docker, SSL y backups automáticos", k: "Infraestructura" },
+      ],
+      learnings: [
+        "Una migración de ERP es principalmente un proyecto de procesos y datos, no una instalación técnica. La limpieza del catálogo resultó más crítica que el desarrollo de funcionalidades.",
+        "La adopción se gana adaptando el sistema a la forma real de trabajo. El POS por teclado hizo más por la aceptación que cualquier funcionalidad nueva.",
+        "Mantener ambos sistemas en paralelo durante la estabilización redujo el riesgo operativo a casi cero y me dio margen para corregir sin presión.",
+        "El desarrollo asistido por IA acelera la transformación de datos, pero las reglas, la validación y la responsabilidad sobre el resultado siguen siendo mías.",
+      ],
+    },
+    en: {
+      duration: "2025 – Present",
+      team: "Sole analyst and implementer + 3 operational users",
+      context: {
+        title: "Two branches, two separate systems and no shared catalog.",
+        body: "The hardware store ran two independent installs of Adm Global, one per branch. Each kept its own catalog, internal codes and stock, so the same product could exist twice under different names and codes. With 10,000+ products, migrating without a strategy meant carrying every one of those errors into the new system.",
+        bullets: [
+          "Two independent catalogs, no shared codes or names.",
+          "No visibility of consolidated real stock across branches.",
+          "Fragmented price updates and almost no analytical capability.",
+        ],
+      },
+      problems: [
+        { n: "01", t: "Duplicated catalog", d: "The same product existed twice, with a different code, name and category in each branch. Every creation or edit had to be done twice." },
+        { n: "02", t: "Stock nobody knew", d: "Without a shared catalog there was no way to know a product's real stock or to order purchases sensibly. Exports from the legacy system arrived incomplete and disorganized." },
+        { n: "03", t: "Prices without a policy", d: "Price updates were done product by product and branch by branch. There were no category margins and no consistent rule to hold on to." },
+      ],
+      constraints: [
+        { id: "A", title: "Continuity", body: "The store could not stop selling for a single day during the migration." },
+        { id: "B", title: "Data volume", body: "10,000+ products exported as CSV with incomplete columns and inconsistent data across branches." },
+        { id: "C", title: "Users new to ERP", body: "Three employees used to the legacy system. Adoption had to be gradual and frictionless." },
+        { id: "D", title: "Reversibility", body: "Any serious issue had to be solvable by falling back to the legacy system without losing sales." },
+      ],
+      stackGroups: [
+        { k: "ERP", v: ["Odoo 18 Community", "Sales", "Purchase", "Inventory", "Point of Sale", "Invoicing"] },
+        { k: "Development", v: ["Python", "XML", "JavaScript (OWL)", "Custom modules"] },
+        { k: "Data", v: ["PostgreSQL", "CSV import", "Cleaning and normalization", "Cross-branch deduplication"] },
+        { k: "Infrastructure", v: ["VPS", "Docker", "Nginx", "Domain + SSL", "Automated backups to Google Drive"] },
+      ],
+      decisions: [
+        {
+          n: "A·01",
+          t: "Odoo 18 Community, not a bespoke system",
+          body: "The business needed sales, purchasing, inventory, POS and invoicing running in weeks — not a from-scratch build that would take months and end up unmaintained.",
+          chose: "Odoo 18 Community + custom modules where the standard fell short",
+          reason: "80% of the operation is already solved by the standard. Custom development is reserved for what actually differentiates the business: pricing and store credit.",
+        },
+        {
+          n: "A·02",
+          t: "Single catalog with per-branch stock, not two separate bases",
+          body: "I could replicate the old structure with two companies, or unify the catalog and separate only inventory. The first option was easier to migrate and left the original problem untouched.",
+          chose: "One product record per article, with different stock locations per branch",
+          reason: "One creation, one price, one history. The difference between branches becomes where the goods are, not what they are.",
+        },
+        {
+          n: "A·03",
+          t: "POS reworked for keyboard, not touch",
+          body: "Odoo's standard Point of Sale is built for touch interaction. At the counter, sales happen on a desktop with a keyboard and every second on the mouse counts.",
+          chose: "POS customization with keyboard shortcuts and fewer steps per operation",
+          reason: "The system adapts to how the staff already work, instead of asking them to change their habits mid-migration.",
+        },
+      ],
+      challenges: [
+        "Identifying equivalent products across branches. Different internal codes, similar-but-not-equal names, different categories and missing data. I used AI tooling to speed up the initial cleaning and transformation, but I defined the matching rules, reviewed the output and manually validated every ambiguous case.",
+        "Turning a touch POS into a keyboard-driven one. I reworked much of the Point of Sale experience: shortcut navigation, flows optimized for repeat sales and fewer steps per operation, without breaking compatibility with standard-module updates.",
+        "Custom pricing and store-credit modules. In Python, XML and JavaScript I built price management by global margin, per-category margin and per-product override, plus customer store credit matching how the business actually operates.",
+        "Training without stopping sales. I installed access on every machine and asked the staff to replicate in Odoo the same sales they were making in the legacy system. I sat through each operation, logged the real usability friction and adjusted the system on that feedback before depending on it.",
+      ],
+      impactRows: [
+        { before: "2 catalogs", after: "1 catalog", k: "Product structure" },
+        { before: "Stock siloed per system", after: "Per-branch stock in one place", k: "Inventory visibility" },
+        { before: "Price per product and branch", after: "Global, per-category or per-product margins", k: "Pricing policy" },
+        { before: "No backup or staging", after: "VPS with Docker, SSL and automated backups", k: "Infrastructure" },
+      ],
+      learnings: [
+        "An ERP migration is mostly a process-and-data project, not a technical install. Cleaning the catalog turned out to matter more than building features.",
+        "Adoption is earned by adapting the system to how people actually work. The keyboard-driven POS did more for acceptance than any new feature.",
+        "Running both systems in parallel through stabilization cut operational risk to almost zero and gave me room to fix things without pressure.",
+        "AI-assisted development speeds up data transformation, but the rules, the validation and the responsibility for the result stay mine.",
+      ],
+    },
+  },
   medreports: {
     es: {
       duration: "2024 – Presente",

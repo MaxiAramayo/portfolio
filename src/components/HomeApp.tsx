@@ -1,29 +1,41 @@
 import { useState, useEffect } from "react";
-import { PORTFOLIO_CONTENT } from "../lib/content";
-import type { Lang, Theme } from "../lib/types";
+import { PORTFOLIO_CONTENT, CV_URL } from "../lib/content";
+import { PROJECTS } from "../lib/projects";
+import type { Lang } from "../lib/types";
 
-import CustomCursor from "./CustomCursor";
-import TopBar from "./TopBar";
-import Hero from "./Hero";
-import Marquee from "./Marquee";
-import WorkSection from "./WorkSection";
-import About from "./About";
-import Process from "./Process";
-import Stack from "./Stack";
-import Credentials from "./Credentials";
-import Availability from "./Availability";
-import Contact from "./Contact";
-import Footer from "./Footer";
-import Drawer from "./Drawer";
+import Sidebar from "./Sidebar";
+import ProjectItem from "./ProjectItem";
+import Lightbox from "./Lightbox";
+
+const SECTION_IDS = ["about", "projects", "stack", "contact"] as const;
+
+/** Marca como activa la sección visible en el centro del viewport. */
+function useScrollSpy(ids: readonly string[]) {
+  const [active, setActive] = useState<string>(ids[0]);
+
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActive(e.target.id);
+        });
+      },
+      { rootMargin: "-40% 0px -55% 0px" }
+    );
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) obs.observe(el);
+    });
+    return () => obs.disconnect();
+  }, [ids]);
+
+  return active;
+}
 
 export default function HomeApp() {
   const [lang, setLang] = useState<Lang>("es");
-  const [theme, setTheme] = useState<Theme>("dark");
-  const [drawerOpen, setDrawerOpen] = useState<string | null>(null);
-
-  useEffect(() => {
-    document.body.setAttribute("data-theme", theme);
-  }, [theme]);
+  const [lightbox, setLightbox] = useState<{ src: string; alt: string } | null>(null);
+  const active = useScrollSpy(SECTION_IDS);
 
   useEffect(() => {
     document.documentElement.setAttribute("lang", lang);
@@ -31,34 +43,105 @@ export default function HomeApp() {
 
   const t = PORTFOLIO_CONTENT[lang];
 
+  const nav = [
+    { id: "about", label: t.nav.about },
+    { id: "projects", label: t.nav.work },
+    { id: "stack", label: t.nav.stack },
+    { id: "contact", label: t.nav.contact },
+  ];
+
   return (
-    <>
-      <CustomCursor />
-      <TopBar
-        lang={lang}
-        setLang={setLang}
-        theme={theme}
-        setTheme={setTheme}
-        t={t}
-      />
-      <main className="main grid-bg">
-        <Hero t={t} lang={lang} />
-        <Marquee lang={lang} />
-        <WorkSection t={t} lang={lang} onOpen={setDrawerOpen} />
-        <About t={t} lang={lang} />
-        <Process t={t} />
-        <Stack t={t} lang={lang} />
-        <Credentials t={t} />
-        <Availability t={t} lang={lang} />
-        <Contact t={t} lang={lang} />
+    <div className="wrap">
+      <Sidebar t={t} lang={lang} setLang={setLang} nav={nav} active={active} />
+
+      <main className="main">
+        <section id="about" className="sec">
+          <h2 className="sec-head">{t.about.eyebrow}</h2>
+          <p className="body">{t.about.body1}</p>
+          <p className="body">{t.about.body2}</p>
+          <p className="body">{t.about.body3}</p>
+
+          <div className="meta-row">
+            <span>{t.hero.meta.based}</span>
+            <span>{t.hero.meta.timezone}</span>
+            <span>{t.hero.meta.years}</span>
+          </div>
+
+          <div className="creds">
+            {t.credentials.items.map((c) => (
+              <button
+                key={c.name}
+                className="cred"
+                onClick={() => setLightbox({ src: c.image, alt: c.name })}
+                aria-label={`${c.type}: ${c.name}`}
+              >
+                <img className="cred-thumb" src={c.image} alt="" loading="lazy" />
+                <span className="cred-body">
+                  <span className="cred-type">{c.type}</span>
+                  <span className="cred-name">{c.name}</span>
+                  <span className="cred-issuer">
+                    {c.issuer} · {c.year}
+                  </span>
+                </span>
+              </button>
+            ))}
+          </div>
+        </section>
+
+        <section id="projects" className="sec">
+          <h2 className="sec-head">{t.work.eyebrow}</h2>
+          <p className="body">{t.work.sub}</p>
+          <ul className="pc-list">
+            {PROJECTS.map((p) => (
+              <ProjectItem key={p.id} p={p} lang={lang} openCase={t.work.openCase} />
+            ))}
+          </ul>
+        </section>
+
+        <section id="stack" className="sec">
+          <h2 className="sec-head">{t.stack.eyebrow}</h2>
+          <div className="stack-grid">
+            {t.stack.groups.map((g) => (
+              <div key={g.k}>
+                <div className="stack-k">{g.k}</div>
+                <ul className="stack-v">
+                  {g.v.map((v) => (
+                    <li key={v}>{v}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="contact" className="sec">
+          <h2 className="sec-head">{t.contact.eyebrow}</h2>
+          <h3 className="contact-title">{t.contact.title}</h3>
+          <p className="body">{t.contact.sub}</p>
+          <a className="contact-btn" href={`mailto:${t.contact.email}`}>
+            {t.contact.writeMe} <span aria-hidden="true">→</span>
+          </a>
+          <div className="contact-links">
+            <a href={`mailto:${t.contact.email}`}>{t.contact.email}</a>
+            <a href={CV_URL} download>
+              {t.nav.cv}
+            </a>
+          </div>
+          <footer className="foot">
+            {t.footer.colofon}
+            <br />
+            {t.footer.built} {t.footer.year}
+          </footer>
+        </section>
       </main>
-      <Footer t={t} />
-      <Drawer
-        openId={drawerOpen}
-        onClose={() => setDrawerOpen(null)}
-        lang={lang}
-        t={t}
-      />
-    </>
+
+      {lightbox && (
+        <Lightbox
+          src={lightbox.src}
+          alt={lightbox.alt}
+          onClose={() => setLightbox(null)}
+        />
+      )}
+    </div>
   );
 }

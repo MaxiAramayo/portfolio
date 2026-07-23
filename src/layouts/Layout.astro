@@ -10,9 +10,10 @@ interface Props {
 }
 
 const SITE = "https://maxiaramayo.com";
-const DEFAULT_TITLE = "Maximiliano Aramayo Lazo — Fullstack Engineer";
+const DEFAULT_TITLE =
+  "Maximiliano Aramayo Lazo — Ingeniero en Informática & Fullstack Developer";
 const DEFAULT_DESC =
-  "Fullstack Engineer con productos en producción en salud, retail y servicios. React · TypeScript · NestJS · Next.js. Basado en Buenos Aires, disponible para trabajo remoto global.";
+  "Ingeniero en Informática y Fullstack Developer Jr+. Sistemas en producción en salud, retail y servicios: React, Next.js, TypeScript, Node.js, PostgreSQL y Odoo. Del relevamiento al deploy.";
 const DEFAULT_OG = `${SITE}/imagenes-perfil/Perfil.jpeg`;
 
 const {
@@ -29,10 +30,15 @@ const personLd = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Maximiliano Aramayo Lazo",
-  jobTitle: "Fullstack Engineer",
+  jobTitle: "Ingeniero en Informática · Fullstack Developer",
   url: SITE,
   email: "maxilazo888@gmail.com",
   image: DEFAULT_OG,
+  hasCredential: {
+    "@type": "EducationalOccupationalCredential",
+    credentialCategory: "degree",
+    name: "Ingeniería en Informática",
+  },
   address: {
     "@type": "PostalAddress",
     addressLocality: "Buenos Aires",
@@ -45,6 +51,9 @@ const personLd = JSON.stringify({
     "NestJS",
     "Next.js",
     "PostgreSQL",
+    "Odoo",
+    "Python",
+    "Docker",
     "AWS S3",
     "Firebase",
     "Tailwind CSS",
@@ -52,7 +61,7 @@ const personLd = JSON.stringify({
   offers: {
     "@type": "Offer",
     description:
-      "Desarrollo fullstack: relevamiento, arquitectura, desarrollo, integración y deploy.",
+      "Desarrollo fullstack y análisis técnico-funcional: relevamiento, arquitectura, desarrollo, integración, implementación de ERP y deploy.",
     areaServed: "Worldwide",
   },
 });
@@ -103,7 +112,7 @@ const websiteLd = JSON.stringify({
     <meta name="twitter:creator" content="@maxiaramayo" />
 
     <!-- Theme & App -->
-    <meta name="theme-color" content="#0f0f0f" />
+    <meta name="theme-color" content="#0b1120" />
     <meta name="color-scheme" content="dark" />
     <meta name="application-name" content="Maximiliano Aramayo Lazo" />
     {
@@ -138,7 +147,7 @@ const websiteLd = JSON.stringify({
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
 
@@ -151,7 +160,7 @@ const websiteLd = JSON.stringify({
       )
     }
   </head>
-  <body data-theme="dark">
+  <body>
     <slot />
   </body>
 </html>
@@ -163,9 +172,8 @@ const websiteLd = JSON.stringify({
   html,
   body {
     min-height: 100%;
-    overflow-x: hidden;
-  }
-  #root {
-    min-height: 100vh;
+    /* `clip` en vez de `hidden`: contiene el desborde horizontal sin
+       convertir al root en scroll container, que rompería el sidebar sticky. */
+    overflow-x: clip;
   }
 </style>
