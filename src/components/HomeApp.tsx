@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { PORTFOLIO_CONTENT, CV_URL } from "../lib/content";
+import { PORTFOLIO_CONTENT, CV_ANALISTA_URL, CV_URL } from "../lib/content";
 import { PROJECTS } from "../lib/projects";
 import type { Lang } from "../lib/types";
 
@@ -7,7 +7,7 @@ import Sidebar from "./Sidebar";
 import ProjectItem from "./ProjectItem";
 import Lightbox from "./Lightbox";
 
-const SECTION_IDS = ["about", "projects", "stack", "contact"] as const;
+const SECTION_IDS = ["about", "experience", "projects", "stack", "contact"] as const;
 
 /** Marca como activa la sección visible en el centro del viewport. */
 function useScrollSpy(ids: readonly string[]) {
@@ -45,6 +45,7 @@ export default function HomeApp() {
 
   const nav = [
     { id: "about", label: t.nav.about },
+    { id: "experience", label: t.nav.experience },
     { id: "projects", label: t.nav.work },
     { id: "stack", label: t.nav.stack },
     { id: "contact", label: t.nav.contact },
@@ -69,13 +70,16 @@ export default function HomeApp() {
 
           <div className="creds">
             {t.credentials.items.map((c) => (
-              <button
+              <div
                 key={c.name}
                 className="cred"
-                onClick={() => setLightbox({ src: c.image, alt: c.name })}
-                aria-label={`${c.type}: ${c.name}`}
+                onClick={() => c.image && setLightbox({ src: c.image, alt: c.name })}
+                role={c.image ? "button" : undefined}
+                tabIndex={c.image ? 0 : undefined}
+                aria-label={c.image ? `${c.type}: ${c.name}` : undefined}
+                style={c.image ? { cursor: "zoom-in" } : undefined}
               >
-                <img className="cred-thumb" src={c.image} alt="" loading="lazy" />
+                {c.image && <img className="cred-thumb" src={c.image} alt="" loading="lazy" />}
                 <span className="cred-body">
                   <span className="cred-type">{c.type}</span>
                   <span className="cred-name">{c.name}</span>
@@ -83,7 +87,27 @@ export default function HomeApp() {
                     {c.issuer} · {c.year}
                   </span>
                 </span>
-              </button>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="experience" className="sec">
+          <h2 className="sec-head">{t.experience.eyebrow}</h2>
+          <div className="exp-list">
+            {t.experience.items.map((exp, i) => (
+              <div key={i} className="exp-item">
+                <div className="exp-head">
+                  <div className="exp-company">{exp.company}</div>
+                  <div className="exp-role">{exp.role}</div>
+                  <div className="exp-period">{exp.period} · {exp.location}</div>
+                </div>
+                <ul className="exp-bullets">
+                  {exp.bullets.map((b, j) => (
+                    <li key={j}>{b}</li>
+                  ))}
+                </ul>
+              </div>
             ))}
           </div>
         </section>
@@ -123,8 +147,11 @@ export default function HomeApp() {
           </a>
           <div className="contact-links">
             <a href={`mailto:${t.contact.email}`}>{t.contact.email}</a>
+            <a href={CV_ANALISTA_URL} download>
+              {lang === "es" ? "Descargar CV Analista" : "Download CV Analyst"}
+            </a>
             <a href={CV_URL} download>
-              {t.nav.cv}
+              {lang === "es" ? "Descargar CV Fullstack" : "Download CV Fullstack"}
             </a>
           </div>
           <footer className="foot">

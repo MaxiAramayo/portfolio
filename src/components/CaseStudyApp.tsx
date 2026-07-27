@@ -524,7 +524,7 @@ export default function CaseStudyApp({ projectId }: CaseStudyAppProps) {
         </CSBlock>
 
         {/* DECISIONS */}
-        <CSBlock num={n(6)} eyebrow={lang === "es" ? "Decisiones técnicas" : "Technical decisions"} title={lang === "es" ? "Tres decisiones que se sostienen seis meses después." : "Three decisions that still hold up six months in."}>
+        <CSBlock num={n(6)} eyebrow={lang === "es" ? "Decisiones técnicas" : "Technical decisions"} title={lang === "es" ? "Tres decisiones clave del proyecto." : "Three key project decisions."}>
           <div className="decisions">
             {csData.decisions.map((d) => (
               <Decision key={d.n} n={d.n} t={d.t} body={d.body} chose={d.chose} reason={d.reason} />

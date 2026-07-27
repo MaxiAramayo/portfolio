@@ -29,8 +29,17 @@ export interface Project {
   accent: string;
 }
 
+export interface ExperienceItem {
+  company: string;
+  role: string;
+  period: string;
+  location: string;
+  bullets: string[];
+}
+
 export interface NavContent {
   about: string;
+  experience: string;
   work: string;
   stack: string;
   contact: string;
@@ -73,6 +82,10 @@ export interface PortfolioContent {
     body2: string;
     body3: string;
     photoCaption: string;
+  };
+  experience: {
+    eyebrow: string;
+    items: ExperienceItem[];
   };
   work: {
     eyebrow: string;

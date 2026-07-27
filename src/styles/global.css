@@ -338,6 +338,84 @@ html { scroll-behavior: smooth; }
   padding: 4px 10px;
 }
 
+/* ---- HERO BUTTONS ---- */
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 22px;
+}
+.hero-btn {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--text-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-2);
+  padding: 8px 14px;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+.hero-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ---- EXPERIENCIA ---- */
+.exp-list {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.exp-item {
+  border-left: 2px solid var(--border);
+  padding-left: 20px;
+}
+.exp-company {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+.exp-role {
+  font-size: 14px;
+  color: var(--accent);
+  font-weight: 500;
+  margin-top: 2px;
+}
+.exp-period {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.exp-bullets {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.exp-bullets li {
+  position: relative;
+  padding-left: 16px;
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.5;
+}
+.exp-bullets li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
 /* ---- CONTACTO ---- */
 .contact-title {
   font-size: 27px;
@@ -416,6 +494,7 @@ html { scroll-behavior: smooth; }
     border-top: 1px solid var(--border);
   }
   .pc:hover { background: transparent; transform: none; }
+  .hero-buttons { display: none; }
   .stack-grid { grid-template-columns: 1fr; }
   .creds { grid-template-columns: 1fr; }
 }

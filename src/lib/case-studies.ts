@@ -53,7 +53,7 @@ export interface CaseStudyData {
 export const CASE_STUDIES: Record<string, { es: CaseStudyData; en: CaseStudyData }> = {
   "odoo-ferreteria": {
     es: {
-      duration: "2025 – Presente",
+      duration: "2025",
       team: "Analista e implementador único + 3 usuarios operativos",
       context: {
         title: "Dos sucursales, dos sistemas separados y ningún catálogo en común.",
@@ -124,7 +124,7 @@ export const CASE_STUDIES: Record<string, { es: CaseStudyData; en: CaseStudyData
       ],
     },
     en: {
-      duration: "2025 – Present",
+      duration: "2025",
       team: "Sole analyst and implementer + 3 operational users",
       context: {
         title: "Two branches, two separate systems and no shared catalog.",
@@ -197,7 +197,7 @@ export const CASE_STUDIES: Record<string, { es: CaseStudyData; en: CaseStudyData
   },
   medreports: {
     es: {
-      duration: "2024 – Presente",
+      duration: "2024 – 2025",
       team: "Solo developer + radióloga",
       context: {
         title: "Una radióloga con 40+ plantillas Word dispersas y pacientes sin acceso digital.",
@@ -273,7 +273,7 @@ export const CASE_STUDIES: Record<string, { es: CaseStudyData; en: CaseStudyData
       ],
     },
     en: {
-      duration: "2024 – Present",
+      duration: "2024 – 2025",
       team: "Solo developer + radiologist",
       context: {
         title: "A radiologist with 40+ scattered Word templates and no digital patient access.",

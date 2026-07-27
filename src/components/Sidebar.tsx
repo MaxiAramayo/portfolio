@@ -1,5 +1,5 @@
 import type { Lang, PortfolioContent } from "../lib/types";
-import { CV_URL } from "../lib/content";
+import { CV_ANALISTA_URL, CV_URL } from "../lib/content";
 
 const SOCIAL = {
   github: "https://github.com/MaxiAramayo",
@@ -57,7 +57,21 @@ export default function Sidebar({ t, lang, setLang, nav, active }: SidebarProps)
         </div>
 
         <p className="role">{t.hero.role}</p>
-        <p className="pitch">{t.hero.pitch}</p>
+
+        <div className="hero-buttons">
+          <a href="#experience" className="hero-btn">
+            {lang === "es" ? "Ver experiencia" : "View experience"}
+          </a>
+          <a href="#projects" className="hero-btn">
+            {lang === "es" ? "Ver proyectos" : "View projects"}
+          </a>
+          <a href={CV_ANALISTA_URL} download className="hero-btn">
+            {lang === "es" ? "Descargar CV Analista" : "Download CV Analyst"}
+          </a>
+          <a href="#contact" className="hero-btn">
+            {lang === "es" ? "Contactarme" : "Get in touch"}
+          </a>
+        </div>
 
         <nav className="nav" aria-label={t.nav.sections}>
           {nav.map((n) => (

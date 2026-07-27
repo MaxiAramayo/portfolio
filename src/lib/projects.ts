@@ -31,7 +31,7 @@ export const PROJECTS: Project[] = [
     impact: [
       { v: "10.000+", k: { es: "productos migrados", en: "products migrated" }, sub: { es: "Catálogo limpiado y normalizado", en: "Catalog cleaned and normalized" } },
       { v: "2 → 1", k: { es: "catálogos unificados", en: "catalogs unified" }, sub: { es: "Stock diferenciado por sucursal", en: "Per-branch stock kept separate" } },
-      { v: "3", k: { es: "usuarios capacitados", en: "users trained" }, sub: { es: "Transición en paralelo, sin frenar la operación", en: "Parallel transition, operation never stopped" } },
+      { v: "3", k: { es: "usuarios capacitados", en: "users trained" }, sub: { es: "Transición en paralelo sin frenar la operación", en: "Parallel transition, operation never stopped" } },
     ],
     stack: ["Odoo 18 Community", "Python", "XML", "JavaScript", "PostgreSQL", "Docker", "Nginx", "VPS", "SSL"],
     security: ["Acceso por roles de Odoo", "SSL con certificado propio", "Backups automáticos en Google Drive", "Entorno local separado del de producción"],
@@ -45,8 +45,8 @@ export const PROJECTS: Project[] = [
     statusKey: "live",
     title: { es: "Sistema de Gestión de Informes Médicos", en: "Medical Reports Management System" },
     tagline: {
-      es: "Informes médicos digitales, plantillas reutilizables, portal de pacientes 24/7.",
-      en: "Digital medical reports, reusable templates, 24/7 patient portal.",
+      es: "Informes médicos digitales, plantillas reutilizables, portal de pacientes 24/7. +1.000 informes generados.",
+      en: "Digital medical reports, reusable templates, 24/7 patient portal. 1,000+ reports generated.",
     },
     sector: { es: "Salud", en: "Healthcare" },
     role: { es: "Fullstack · Análisis · Arquitectura · Deploy", en: "Fullstack · Discovery · Architecture · Deploy" },
@@ -60,8 +60,8 @@ export const PROJECTS: Project[] = [
     },
     impact: [
       { v: "80%", k: { es: "menos tiempo por informe", en: "less time per report" }, sub: { es: "15 min → 3 min", en: "15 min → 3 min" } },
+      { v: "+1.000", k: { es: "informes generados", en: "reports generated" }, sub: { es: "En producción desde 2025", en: "In production since 2025" } },
       { v: "24/7", k: { es: "portal pacientes", en: "patient portal" }, sub: { es: "Sin desplazamientos", en: "No commute" } },
-      { v: "0", k: { es: "documentos perdidos", en: "documents lost" }, sub: { es: "Trazabilidad total", en: "Full audit" } },
     ],
     stack: ["Next.js", "TypeScript", "React", "Tailwind", "NestJS", "Prisma", "PostgreSQL", "AWS S3", "pdfmake", "Zod", "Zustand", "JWT"],
     security: ["JWT + Cookies HTTPOnly", "reCAPTCHA", "AWS S3 con URLs firmadas", "RBAC por endpoint (NestJS Guards)", "Verificación SMS (2026)"],
@@ -89,7 +89,7 @@ export const PROJECTS: Project[] = [
       en: "Multi-tenant SaaS: each merchant gets a storefront, admin panel, WhatsApp orders, MercadoPago payments and PDF/Excel reporting.",
     },
     impact: [
-      { v: "3+", k: { es: "comercios activos", en: "active merchants" }, sub: { es: "Ventas reales en producción", en: "Real sales in production" } },
+      { v: "10+", k: { es: "comercios lo utilizan", en: "active merchants" }, sub: { es: "Ventas reales en producción", en: "Real sales in production" } },
       { v: "100%", k: { es: "self-service", en: "self-service" }, sub: { es: "Onboarding sin intervención", en: "Hands-off onboarding" } },
       { v: "WA", k: { es: "canal nativo de pedidos", en: "native order channel" }, sub: { es: "Sin fricción para el cliente final", en: "Zero friction for end customers" } },
     ],
@@ -119,9 +119,9 @@ export const PROJECTS: Project[] = [
       en: "n8n flow integrated with WhatsApp Business and Excel that validates availability, confirms, reminds and logs each appointment automatically.",
     },
     impact: [
-      { v: "2 hs", k: { es: "diarias liberadas", en: "freed daily" }, sub: { es: "Tiempo recuperado para el trabajo real", en: "Time reclaimed for actual work" } },
-      { v: "0", k: { es: "doble reservas", en: "double bookings" }, sub: { es: "Validación previa al confirmar", en: "Pre-validated before confirm" } },
-      { v: "24/7", k: { es: "operativo", en: "uptime" }, sub: { es: "Sin intervención del dueño", en: "No owner intervention" } },
+      { v: "—", k: { es: "Reducción significativa de gestión manual", en: "Significant reduction in manual management" }, sub: { es: "Tiempo recuperado para el trabajo real", en: "Time reclaimed for actual work" } },
+      { v: "—", k: { es: "Validación automática de disponibilidad", en: "Automatic availability validation" }, sub: { es: "Sin dobles reservas", en: "No double bookings" } },
+      { v: "—", k: { es: "Atención y registro fuera de horario", en: "Off-hours attention and logging" }, sub: { es: "Sin intervención del dueño", en: "No owner intervention" } },
     ],
     stack: ["n8n", "WhatsApp Business API", "Excel"],
     security: ["Tokens API rotativos", "Validación en cada nodo del flujo"],
